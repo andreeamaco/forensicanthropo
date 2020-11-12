@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "stageOfDecomposition": "Autolysis (self-digestion)",
+    "starts": "24-72 hours after death",
+    "processDescription": "The membranes release enzymes that begin eating the cells from the inside out. Rigor mortis causes muscle stiffening. Small blisters filled with nutrient-rich fluid begin appearing on internal organs and the skin’s surface.",
+    "skinAspect": "The body will appear to have a sheen due to ruptured blisters, and the skin’s top layer will begin to loosen."
+    }, 
+  { 
+    "id": 2,
+    "stageOfDecomposition": "Bloat",
+    "starts": "3-5 days after death",
+    "processDescription": "Leaked enzymes from the first stage begin producing many gases. The sulfur-containing compounds that the bacteria release also cause skin discoloration. Due to the gases, the human body can double in size. In addition, insect activity can be present. The microorganisms and bacteria produce extremely unpleasant odors called putrefaction. These odors often alert others that a person has died, and can linger long after a body has been removed.",
+    "skinAspect": "Discolored and bloated"
+  },
+  {
+    "id": 3,
+    "stageOfDecomposition": "Active decay",
+     "starts": "8-10 days after death",
+    "processDescription": "Fluids released through orifices indicate the beginning of active decay. Organs, muscles, and skin become liquefied. When all of the body’s soft tissue decomposes, hair, bones, cartilage, and other byproducts of decay remain. The cadaver loses the most mass during this stage.",
+    "skinAspect": "Changing from green to red, beautiful gradient"
+  },
+  {
+    "id": 4,
+    "stageOfDecomposition": "Skeletonization",
+     "starts": "Several weeks after death",
+    "processDescription": "Because the skeleton has a decomposition rate based on the loss of organic (collagen) and inorganic components, there is no set timeframe when skeletonization occurs.",
+    "skinAspect": "Skeleton"
+  }
+]
