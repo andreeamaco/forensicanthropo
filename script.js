@@ -50,37 +50,37 @@ function getPicture() {
 
 function getCases() {
 
+  document.getElementById('output').innerHTML = '';
+  let newH2 = `<h2>Enjoy the read and feel free to add another case.</h2>`;
+  document.getElementById('h2').innerHTML = newH2;
   document.getElementById('addContent').style="display:initial";
 
-  // fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Main/?view=Grid%20view', {
-  //       headers: { Authorization: `Bearer keyAHEYJo950dbgYl` }
-  // }
-  // .then(response => response.json())
-  // .then( cases => {
+  fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Cases?api_key=keyAHEYJo950dbgYl&view=Grid%20view') 
+  .then( response => response.json())
+  .then( cases => {
+    
+    let records = cases.records;
+    console.log(records);
+  
+    let output = ``;
 
-  //       let newH2 = `<h2>No more creepy stuff, huh?</h2>`;
-  //       document.getElementById('h2').innerHTML = newH2;
-        
-  //       let output = ``;
+    let i;
+    for (i=0; i < cases.length; i++) (function(cases) {
+      let output = ``;
 
-  //       let i;
-  //       for (i=0; i < cases.length; i++) (function(cases) {
-  //         let output = ``;
-
-  //         output += `
-  //         <div class="card" style="width: 18rem">
-  //           <img src=`${cases[i].fields['Pictures'][0].url}` class="card-img-top" alt=">
-  //           <div class="card-body">
-  //             <h5 class="card-title">${cases.fields['Case name']}</h5>
-  //             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  //             <a href="#" class="btn btn-primary rounded-pill"><b>Read the full case</b></a>
-  //           </div>
-  //         </div>`
+      output += `
+          <div class="card" style="width: 18rem">
+            <img src="${cases[i].fields['Pictures'][0].url}" class="card-img-top" alt=">
+            <div class="card-body">
+              <h5 class="card-title">${cases.fields['Case name']}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary rounded-pill"><b>Read the full case</b></a>
+            </div>
+          </div>`
           
-  //       document.getElementById('output').innerHTML = output;
-  //   })
-  // })
-  // )
+        document.getElementById('output').innerHTML = output;
+    })
+  })
 }
           
           // Because it's a form, we'll pass an event parameter
