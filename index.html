@@ -1,148 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.scss">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.scss" type="text/css">
   <title>How will you look when you die?</title>
 </head>
-<body class="container-fluid">
+
+<body class="container-fluid mt-4 mb-4">
 
   <div class="row align-items-center justify-content-center mt-4">
-    <div class="col justify-content-center align-items-center">
-      <img class="img-fluid"
-      src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/dead-inside-skeleton-coffee-halloween-meme-flippin-sweet-gear.jpg">
+    <div class="row px-4 mx-4 justify-content-center">
+
+      <img class="img-fluid" style="height:auto"
+        src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/dead-inside-skeleton-coffee-halloween-meme-flippin-sweet-gear.jpg">
     </div>
 
-    <div class="col align-items-center justify-content-center">
+    <div class="col px-4 mx-4 align-items-center justify-content-center">
       <div id="header" class="mb-lg-4">
         <h1 class="display-4">Oh hello there, human</h1>
         <h2 id="h2">Curious to see how you'll look after you die?</h2>
       </div>
 
       <div class="d-flex">
-        <button class="btn btn-primary mr-4" id="getText">Read how you'll look</button>
-        <button class="btn btn-secondary mr-4" id="getPicture">More graphical, please?</button>
-        <button class="btn btn-success mr-4" id="getExternalBlogs">Get external blogs</button>
+        <button class="btn btn-primary mr-4 rounded-pill" id="getText">Yes, let me read!</button>
+        <button class="btn btn-danger mr-4 rounded-pill" id="getPicture">I prefer morbid graphics</button>
+        <button class="btn btn-warning mr-4 rounded-pill" id="getCases">Show me some cases</button>
+        <!-- <a class="btn btn-success rounded-pill" href="animated.html">I know already</a> -->
       </div>
-      <hr>
-      <div id="output"></div>
 
-      <form id="addContent" style="display:none">
-        <div class="form-group">
-          <input class="form-control" type="text" id="title" placeholder="Title" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="textarea" id="body" placeholder="Body" />
-        </div>
-        <input class="btn btn-secondary" type="submit" value="Submit" />
+      <hr>
+
+      <form class="container" id="addContent" style="display: none">
+        <details class="container-fluid">
+          <summary class="col mb-4">Would you like to submit a case?</summary>
+
+          <div class="form-group col">
+            <input class="form-control" type="text" id="title" placeholder="Case name" required />
+          </div>
+          <div class="form-group col">
+            <input class="form-control" type="datetime" id="year" placeholder="Year" />
+          </div>
+          <div class="form-group col">
+            <input class="form-control" type="textarea" id="body" placeholder="Description" />
+          </div>
+          <div class="form-group col">
+            <input class="form-control" type="text" id="status" placeholder="Status" />
+          </div>
+
+          <div class="form-group col mb-4">
+            <input class="form-control" type="text" id="link" placeholder="Case URL" />
+          </div>
+          <div class="col">
+            <input class="btn btn-secondary rounded-pill" type="submit" value="Submit" />
+          </div>
+        </details>
       </form>
+
+      <div id="output" class="container d-flex justify-content-center" style="flex-flow: column"></div>
+
     </div>
   </div>
+
+  <script src="./script.js"> </script>
     
-  <script>
-      document.getElementById('getText').addEventListener('click', getText);
-      document.getElementById('getPicture').addEventListener('click', getPicture);
-      document.getElementById('getExternalBlogs').addEventListener('click', getExternalBlogs);
-      document.getElementById('addContent').addEventListener('submit', addContent);
-      
-      
-      function getText() {
-        fetch('text.json')
-        .then(res => res.json())
-        .then(data => {
-          let newH2 = `<h2>Curiosity is a virtue. Enjoy the read.</h2>`
-          document.getElementById('h2').innerHTML = newH2;
-
-          let output = `
-          <p>Human decomposition begins around four minutes after a person dies and follows four stages: 
-            autolysis, bloat, active decay, and skeletonization.</p>
-            `;
-            data.forEach(function (text) {
-              output += `
-              <ul>
-                <li>Stage of decomposition: ${text.stageOfDecomposition}</li>
-                <li>Starts: ${text.starts}</li>
-                <li>Process: ${text.processDescription}</li>
-                <li>Skin aspect: ${text.skinAspect}</li>
-                </ul>
-                `
-                document.getElementById('output').innerHTML = output;
-              })
-            })
-            .catch(error => console.log(error))
-    }
-    
-    function getPicture() {
-      fetch('pictures.json')
-      .then(res => res.json())
-      .then(data => {
-        let newH2 = `<h2>Seriously, you have sick desires. Here's how you'll look.</h2>`;
-        document.getElementById('h2').innerHTML = newH2;
-
-        let output = ``;
-
-        data.forEach(function(picture) {
-          output += `
-
-              <div style="display: flex; flex-flow: column; width: 20%">
-                <p>Stage of decomposition: ${picture.stageOfDecomposition}</p>    
-              
-                <img style="max-height: 200px; width: auto" src=${picture.src}>
-              </div>
-        
-            `
-            document.getElementById('output').innerHTML = output;
-          })
-        })
-        .catch(error => console.log(error))
-    }
-    
-    function getExternalBlogs() {
-      fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then( data => {
-        let newH2 = `<h2>No more creepy stuff, huh?</h2>`;
-        document.getElementById('h2').innerHTML = newH2;
-        
-        let output = ``;
-
-        data.forEach(function(blog) {
-          output += `<div>
-            <h4>Title: ${blog.title}</h4>
-              <p>Content: ${blog.body}<p> 
-                </div>`
-                document.getElementById('output').innerHTML = output;
-              })
-            })
-          }
-          
-          // Because it's a form, we'll pass an event parameter
-          
-          function addContent(event) {
-            event.preventDefault(); // Stops it from actually submitting to a file
-            
-            let title = document.getElementById('title').value;
-            let body = document.getElementById('body').value;
-            
-            // Because we want to post stuff to the API endpoint, the Fetch function needs a second parameter, 
-      // which is the object that we want to post. 
-      
-      fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({title: title, body: body})  // Gets the data from input
-      })
-      .then(res => res.json())
-      .then(data => console.log(data))
-    }
-    
-  </script>
-
 </body>
 </html>

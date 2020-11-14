@@ -1,0 +1,127 @@
+document.getElementById('getText').addEventListener('click', getText);
+document.getElementById('getPicture').addEventListener('click', getPicture);
+document.getElementById('getCases').addEventListener('click', getCases);
+document.getElementById('addContent').addEventListener('submit', addContent);
+      
+      
+function getText() {
+  fetch('text.json')
+  .then(res => res.json())
+  .then(data => {
+    let newH2 = `<h2>Curiosity is a virtue. Enjoy the read.</h2>` 
+    document.getElementById('h2').innerHTML = newH2;
+    document.getElementById('addContent').style="display:none";
+
+    let output = `
+      <div class="alert alert-warning mb-4">
+        <h4>Human decomposition begins around four minutes after a person dies and follows four stages: 
+      autolysis, bloat, active decay, and skeletonization.</h4>
+      </div>`;
+      
+      data.forEach(function (text) {
+        output += `
+          <div class="card card-body mb-4">
+            <h5><b>Stage of decomposition</b>: ${text.stageOfDecomposition}</h5>
+              <p><b>Starts</b>: ${text.starts}</p>
+              <p><b>Process</b>: ${text.processDescription}</p>
+              <p><b>Skin aspect</b>: ${text.skinAspect}</p>
+          </div>`
+        
+        document.getElementById('output').innerHTML = output;
+      })
+  })
+  .catch(error => console.log(error))
+}
+    
+function getPicture() {
+ 
+  let newH2 = `<h2>Seriously, you have sick desires. Here's how you'll look.</h2>`;
+  document.getElementById('h2').innerHTML = newH2;
+  document.getElementById('addContent').style="display:none";
+
+  let output = `
+    <div class="container-fluid d-flex justify-content-center">
+      <img src="https://i.pinimg.com/originals/de/1f/ca/de1fca5d8673bda3036b1026700318c5.jpg">
+    </div>
+  `;
+    
+    document.getElementById('output').innerHTML = output;
+}  
+
+function getCases() {
+
+  document.getElementById('addContent').style="display:initial";
+
+  // fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Main/?view=Grid%20view', {
+  //       headers: { Authorization: `Bearer keyAHEYJo950dbgYl` }
+  // }
+  // .then(response => response.json())
+  // .then( cases => {
+
+  //       let newH2 = `<h2>No more creepy stuff, huh?</h2>`;
+  //       document.getElementById('h2').innerHTML = newH2;
+        
+  //       let output = ``;
+
+  //       let i;
+  //       for (i=0; i < cases.length; i++) (function(cases) {
+  //         let output = ``;
+
+  //         output += `
+  //         <div class="card" style="width: 18rem">
+  //           <img src=`${cases[i].fields['Pictures'][0].url}` class="card-img-top" alt=">
+  //           <div class="card-body">
+  //             <h5 class="card-title">${cases.fields['Case name']}</h5>
+  //             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  //             <a href="#" class="btn btn-primary rounded-pill"><b>Read the full case</b></a>
+  //           </div>
+  //         </div>`
+          
+  //       document.getElementById('output').innerHTML = output;
+  //   })
+  // })
+  // )
+}
+          
+          // Because it's a form, we'll pass an event parameter
+          
+function addContent(event) {
+  event.preventDefault(); // Stops it from actually submitting to a file
+           
+  let title = document.getElementById('title').value;
+  let body = document.getElementById('body').value;
+  let year = document.getElementById('year').value;
+  let status = document.getElementById('status').value;      
+  let link = document.getElementById('link').value;
+
+  let newCase = {
+    records: [
+      {
+        fields: {
+          "Case name": title,
+          "Description": body,
+          "Year": year,
+          'Status': status,
+          'Link': link
+        }
+      }
+    ],
+    typecast: true 
+  }
+      
+  fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Cases', {
+    method: "post",
+    body: JSON.stringify(newCase),
+    headers: {
+      Authorization: 'Bearer keyAHEYJo950dbgYl',
+     'Content-type': 'application/json'
+    },
+    })
+    .then(res => res.json())
+    .then(result => {
+       console.log(result);
+       res.json(result)
+    })
+    .catch(err => console.log(err))
+}
+    
