@@ -49,44 +49,45 @@ function getPicture() {
 }  
 
 function getCases() {
-
-  document.getElementById('output').innerHTML = '';
-  let newH2 = `<h2>Enjoy the read and feel free to add another case.</h2>`;
-  document.getElementById('h2').innerHTML = newH2;
-  document.getElementById('addContent').style="display:initial";
-
   fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Cases?api_key=keyAHEYJo950dbgYl&view=Grid%20view') 
-  .then( response => response.json())
-  .then( cases => {
+  .then( response => {
+    return response.json()
+  })
+  .then( data => {
+    let newH2 = `<h2>Enjoy the read and feel free to add another case.</h2>`;
+    document.getElementById('h2').innerHTML = newH2;
+    document.getElementById('addContent').style="display:initial";
+    document.getElementById('output').style = "flex-flow: row wrap";
     
-    let records = cases.records;
-    console.log(records);
-  
+    let cases = data.records;
+    let i;
+
     let output = ``;
 
-    let i;
-    for (i=0; i < cases.length; i++) (function(cases) {
-      let output = ``;
+    for (i=0; i < cases.length; i++) {
 
       output += `
-          <div class="card" style="width: 18rem">
-            <img src="${cases[i].fields['Pictures'][0].url}" class="card-img-top" alt=">
-            <div class="card-body">
-              <h5 class="card-title">${cases.fields['Case name']}</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary rounded-pill"><b>Read the full case</b></a>
-            </div>
-          </div>`
+      <div class="col-5 card container-fluid justify-content-center align-items-center mb-4">
+        <img src="${cases[i].fields['Pictures'][0].url}" class="card-img-top mt-4 mb-4" alt="" style="height: 200px; object-fit: contain">
+        <p class="text-warning" style="margin: auto">Image via Wikipedia</p>
+        <div class="card-body">
+          <h5 class="card-title">${cases[i].fields['Case name']}</h5>
+          <p class="card-text">${cases[i].fields['Description']}</p>
+          <p class="card-text text-success">Status: ${cases[i].fields['Status']}</p>
+          <a href="${cases[i].fields['Link']}" class="stretched-link rounded-pill"><b>Read the full case</b></a>
+        </div>
+      </div>`
+
+      console.log(output);
           
-        document.getElementById('output').innerHTML = output;
-    })
+      document.getElementById('output').innerHTML = output;
+    }
   })
 }
-          
-          // Because it's a form, we'll pass an event parameter
+       
           
 function addContent(event) {
-  event.preventDefault(); // Stops it from actually submitting to a file
+  event.preventDefault(); 
            
   let title = document.getElementById('title').value;
   let body = document.getElementById('body').value;
