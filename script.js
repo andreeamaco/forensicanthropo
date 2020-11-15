@@ -78,8 +78,6 @@ function getCases() {
         </div>
       </div>`
 
-      console.log(output);
-          
       document.getElementById('output').innerHTML = output;
     }
   })
@@ -120,9 +118,8 @@ function addContent(event) {
     })
     .then(res => res.json())
     .then(result => {
-       console.log(result);
-       res.json(result)
+       res.json(result);
     })
+    .then ( document.getElementById('output').innerHTML = `<h5>Thanks, we will review the case.</h5>` )
     .catch(err => console.log(err))
 }
-    
