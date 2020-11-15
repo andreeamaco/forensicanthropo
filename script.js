@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 document.getElementById('getText').addEventListener('click', getText);
 document.getElementById('getPicture').addEventListener('click', getPicture);
 document.getElementById('getCases').addEventListener('click', getCases);
@@ -49,7 +51,7 @@ function getPicture() {
 }  
 
 function getCases() {
-  fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Cases?api_key=keyAHEYJo950dbgYl&view=Grid%20view') 
+  fetch('https://api.airtable.com/v0/appaYfkeSMCsMh0Rv/Cases?api_key=process.env.AIRTABLE_API&view=Grid%20view') 
   .then( response => {
     return response.json()
   })

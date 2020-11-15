@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const output = document.getElementById('output');
 const quizContainer = document.getElementById('quiz-container');
 const startButton = document.getElementById('startBtn');
