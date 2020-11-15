@@ -5,11 +5,13 @@ const nextButton = document.getElementById('next-btn');
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
+const showResults = document.getElementById('show-results-btn');
 
 let questionsOrder, currentQuestionIndex; 
 
 startButton.addEventListener('click', startQuiz);
 nextButton.addEventListener('click', setNextQuestion);
+showResults.addEventListener('click', checkAncestry);
 
 
 function startQuiz(e) {
@@ -66,6 +68,8 @@ function resetState() {
 
 function selectAnswer(event) {
   const selectedButton = event.target;
+  selectedButton.style="background-color: #28a745";
+
   let parentQuestion = selectedButton.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   let initialQuestion = parentQuestion.innerText;
 
@@ -76,6 +80,7 @@ function selectAnswer(event) {
 
   if (selectedButton.innerText == 'Chosen answers') {
     answerButtonsElement.appendChild(finalResults);
+    showResults.style = "display: initial";
   }
 }
 
@@ -136,4 +141,13 @@ let chosenAnswers = [
   
 ]
 
+function checkAncestry() {
 
+  console.log(chosenAnswers)
+
+  if (chosenAnswers.length < 3 ) {
+    output.innerHTML = `<h3>You didn't answer enough questions. Please start again.</h3>`
+  } else {
+    output.innerHTML = `<h3>We'll check  the database and let you know if there's any match.</h3>`
+  }
+}
