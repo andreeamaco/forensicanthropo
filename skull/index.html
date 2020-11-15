@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="../style.scss" type="text/x-scss">
+  <link rel="stylesheet" href="../style.scss" type="text/scss">
   <script defer src="./skull.js"> </script>
-  <!-- <script defer src="../script.js"> </script> -->
   <title>Memento mori</title>
 </head>
 
@@ -35,22 +34,26 @@
 
       <hr>
 
-      <div id="output" class="container d-flex justify-content-center" style="flex-flow: column">
-        <div class="hidden container d-flex">
-          <div id="question-container">
-            <div id="question" class="mb-4">
-              <h4>How big is the skull?</h4>
+      <div id="output" class="container justify-content-center d-flex" style="flex-flow: column">
+        <div class="container" id="quiz-container" style="display: none">
+          <div id="question-container" style="display: none">
+            <div id="question" class="mb-4 container d-flex flex-column align-items-center">
+              <h3>This will be the question</h3>
+              <figure>
+                <img class="mb-4 mt-4" src="../images/skull-size.PNG" alt="Skull size">
+                <figcaption style="text-align: center">Image via https://naturalhistory.si.edu/</figcaption>
+              </figure>
             </div>
             <div id="answer-buttons" class="d-flex card card-body mb-4 justify-content-center" style="flex-flow: row wrap">
               <button class="btn btn-light col-4 mr-4 mb-4">Option 1</button>
               <button class="btn btn-light col-4 mr-4 mb-4">Option 2</button>
               <button class="btn btn-light col-4 mr-4 mb-4">Option 3</button>
-              <button class="btn btn-light col-4 mr-4 mb-4">Option 4</button>
+              <button class="btn btn-light col-4 mr-4 mb-4">Much smaller/bigger</button>
             </div>
           </div>
-          <div class="controls">
+          <div class="controls d-flex justify-content-between">
             <button id="prev-btn" class="btn btn-primary">Previous</button>
-            <button id="next-btn" class="btn btn-warning hidden">Next</button>
+            <button id="next-btn" class="btn btn-warning">Next</button>
           </div>
         </div>
       </div>
