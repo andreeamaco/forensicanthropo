@@ -1,4 +1,6 @@
-require('dotenv').config();
+// require('dotenv').config();
+
+const AIRTABLE_API='keyAHEYJo950dbgYl';
 
 document.getElementById('getText').addEventListener('click', getText);
 document.getElementById('getPicture').addEventListener('click', getPicture);

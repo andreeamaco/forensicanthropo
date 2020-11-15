@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const output = document.getElementById('output');
 const quizContainer = document.getElementById('quiz-container');
 const startButton = document.getElementById('startBtn');
@@ -50,6 +48,7 @@ function showQuestion(question) {
   question.answers.forEach(answer => {
     const button = document.createElement('button');
     button.innerText = answer.text;
+    button.ancestry = answer.ancestry;
     button.classList.add("btn");
     button.classList.add("btn-light");
     button.classList.add("col-4");
@@ -76,6 +75,7 @@ function selectAnswer(event) {
   let initialQuestion = parentQuestion.innerText;
 
   chosenAnswers.push(`${initialQuestion} ${selectedButton.innerText}. `);
+  ancestry.push(`${selectedButton.ancestry}`);
 
   const finalResults = document.createElement('p');
   finalResults.innerText = chosenAnswers;
@@ -138,18 +138,24 @@ const questions = [
   }
 ]
 
-
-let chosenAnswers = [
-  
-]
+let chosenAnswers = [];
+let ancestry = [];
 
 function checkAncestry() {
 
   console.log(chosenAnswers)
+  console.log(ancestry)
 
+  let european = ancestry.filter(function(European) { return European === true}).length;
+  
+ 
   if (chosenAnswers.length < 3 ) {
     output.innerHTML = `<h3>You didn't answer enough questions. Please start again.</h3>`
   } else {
-    output.innerHTML = `<h3>We'll check  the database and let you know if there's any match.</h3>`
+    output.innerHTML = `<h3>We'll check  the database and let you know if there's any match.</h3>
+    <p>European: ${european.length}</p>
+    <p>American: ${american.length}</p>
+    <p>African: ${african.length}</p>
+    `
   }
 }
