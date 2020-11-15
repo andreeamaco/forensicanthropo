@@ -26,10 +26,13 @@ function startQuiz(e) {
 
 function setNextQuestion() {
   resetState();
-  showQuestion(questionsOrder[currentQuestionIndex])
+  showQuestion(questionsOrder[currentQuestionIndex]);
 
   currentQuestionIndex++;
 
+  if (currentQuestionIndex == questionsOrder.length) {
+    nextButton.style = "display: none";
+  }
 }
 
 function showQuestion(question) {
@@ -39,7 +42,7 @@ function showQuestion(question) {
       <img class="mb-4 mt-4" src="../images/skull-size.PNG" alt="Skull size">
       <figcaption style="text-align: center">Image via https://naturalhistory.si.edu/</figcaption>
     </figure>`;
-  
+
   question.answers.forEach(answer => {
     const button = document.createElement('button');
     button.innerText = answer.text;
@@ -55,7 +58,6 @@ function showQuestion(question) {
 }
 
 function resetState() {
-  // nextButton.style="display: none";
 
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
@@ -64,14 +66,17 @@ function resetState() {
 
 function selectAnswer(event) {
   const selectedButton = event.target;
-  chosenAnswers.push(selectedButton.innerText);
+  let parentQuestion = selectedButton.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
+  let initialQuestion = parentQuestion.innerText;
 
-  console.log(selectedButton.innerText);
-  console.log(chosenAnswers);
-}
+  chosenAnswers.push(`${initialQuestion} ${selectedButton.innerText}. `);
 
-function showAncestry() {
-  console.log(chosenAnswers);
+  const finalResults = document.createElement('p');
+  finalResults.innerText = chosenAnswers;
+
+  if (selectedButton.innerText == 'Chosen answers') {
+    answerButtonsElement.appendChild(finalResults);
+  }
 }
 
 const questions = [
@@ -111,7 +116,7 @@ const questions = [
       { text: 'None of these', ancestry: 'Unknown'}
     ]
   },
-    {
+  {
     question: `Anything else stands out?`,
     answers: [
       { text: 'Sharp inferior nasal border', ancestry: 'European'},
@@ -119,6 +124,10 @@ const questions = [
       { text: 'Large teeth, wrinkling of molars', ancestry: 'African'},
       { text: 'Nothing much', ancestry: 'Unknown'}
     ]
+  },
+  {
+    question: `Click to see your chosen answers`,
+    answers: [{text: 'Chosen answers'}]
   }
 ]
 
