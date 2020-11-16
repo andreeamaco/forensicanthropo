@@ -2,6 +2,7 @@ const output = document.getElementById('output');
 const quizContainer = document.getElementById('quiz-container');
 const startButton = document.getElementById('startBtn');
 const nextButton = document.getElementById('next-btn');
+const prevButton = document.getElementById('prev-btn');
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
@@ -11,6 +12,7 @@ let questionsOrder, currentQuestionIndex;
 
 startButton.addEventListener('click', startQuiz);
 nextButton.addEventListener('click', setNextQuestion);
+prevButton.addEventListener('click', setPreviousQuestion);
 showResults.addEventListener('click', checkAncestry);
 
 
@@ -35,6 +37,13 @@ function setNextQuestion() {
   if (currentQuestionIndex == questionsOrder.length) {
     nextButton.style = "display: none";
   }
+}
+
+function setPreviousQuestion() {
+  resetState();
+  currentQuestionIndex--;
+
+  showQuestion(questionsOrder[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
@@ -141,21 +150,56 @@ const questions = [
 let chosenAnswers = [];
 let ancestry = [];
 
+// let european = ancestry.filter((anc) => anc == "European" ).length;
+// let american = ancestry.filter((anc) => anc == "American" ).length;
+// let african = ancestry.filter((anc) => anc == "African" ).length;
+
+// let total = european+american+african;
+  
+// let eurPercentage = (european * 100)/total;
+// let americanPercentage = (american * 100)/total;
+// let africanPercentage = (african * 100)/total;
+
 function checkAncestry() {
 
-  console.log(chosenAnswers)
-  console.log(ancestry)
+  let european = ancestry.filter((anc) => anc == "European" ).length;
+  let american = ancestry.filter((anc) => anc == "American" ).length;
+  let african = ancestry.filter((anc) => anc == "African" ).length;
 
-  let european = ancestry.filter(function(European) { return European === true}).length;
+  let total = european+american+african;
   
- 
+  let eurPercentage = (european * 100)/total;
+  let americanPercentage = (american * 100)/total;
+  let africanPercentage = (african * 100)/total;
+
   if (chosenAnswers.length < 3 ) {
-    output.innerHTML = `<h3>You didn't answer enough questions. Please start again.</h3>`
+    output.innerHTML = `<h3 class="mt-4">You didn't answer enough questions. Please start again.</h3>`
   } else {
-    output.innerHTML = `<h3>We'll check  the database and let you know if there's any match.</h3>
-    <p>European: ${european.length}</p>
-    <p>American: ${american.length}</p>
-    <p>African: ${african.length}</p>
-    `
+    let myChart = document.getElementById('myChart').getContext('2d');
+    document.getElementById('ancestry-graph').style="display: initial";
+    document.getElementById('quiz-container').style="display: none";
+
+    var pieChart = new Chart(myChart, {
+      type: 'pie',
+      data: {
+        labels: ['European', 'American', 'African'],
+        datasets: [{
+          label: '% chance of a match',
+          data: [eurPercentage, americanPercentage, africanPercentage],
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+          ],
+
+        }]
+      },
+    });
   }
 }

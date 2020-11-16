@@ -8,6 +8,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../style.scss" type="text/scss">
   <script defer src="./skull.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
   <title>Memento mori</title>
 </head>
 
@@ -49,13 +50,18 @@
               <button class="btn btn-light col-4 mr-4 mb-4">Option 2</button>
               <button class="btn btn-light col-4 mr-4 mb-4">Option 3</button>
               <button class="btn btn-light col-4 mr-4 mb-4">Much smaller/bigger</button>
-            </div>
+            </div>           
           </div>
           <div class="controls d-flex justify-content-between">
             <button id="prev-btn" class="btn btn-primary">Previous</button>
             <button id="show-results-btn" class="btn btn-primary" style="display: none">Show ancestry</button>
             <button id="next-btn" class="btn btn-warning">Next</button>
           </div>
+        </div>
+        <div class="container">
+          <h3 id="ancestry-graph" class="mt-4 mb-4" style="display:none">Based on your answers, this skull has the following
+            potential ancestry:</h3>
+          <canvas id="myChart"></canvas>
         </div>
       </div>
 
