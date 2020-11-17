@@ -1,0 +1,71 @@
+#Skull {
+  transform: rotateY(180deg);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#Lowerteeth {
+  animation: lowerjawline 2s linear alternate infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#Lowerjaw {
+  animation: lowerjawline 2s linear alternate infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes lowerjawline {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate3d(20px, 50px, 30px);
+  }
+}
+
+#Upperjaw {
+  animation: upperjawline 2s linear alternate infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes upperjawline {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate3d(-20px, -30px, 10px);
+  }
+}
+
+#Back {
+  animation: back 2s linear alternate infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes back {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate3d(20px, -50px, 30px);
+  }
+}
+
+#Frontal {
+  animation: frontal 2s linear alternate infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes frontal {
+  from {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  to {
+    transform: translate3d(-20px, -50px, 30px);
+  }
+}

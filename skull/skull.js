@@ -150,16 +150,6 @@ const questions = [
 let chosenAnswers = [];
 let ancestry = [];
 
-// let european = ancestry.filter((anc) => anc == "European" ).length;
-// let american = ancestry.filter((anc) => anc == "American" ).length;
-// let african = ancestry.filter((anc) => anc == "African" ).length;
-
-// let total = european+american+african;
-  
-// let eurPercentage = (european * 100)/total;
-// let americanPercentage = (american * 100)/total;
-// let africanPercentage = (african * 100)/total;
-
 function checkAncestry() {
 
   let european = ancestry.filter((anc) => anc == "European" ).length;
